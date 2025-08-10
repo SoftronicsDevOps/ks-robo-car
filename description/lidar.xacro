@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:property name="laser_offset_x" value="0"/>
+    <xacro:property name="laser_offset_x" value="0.005"/>
     <xacro:property name="laser_radius" value="0.035"/>
     <xacro:property name="laser_thickness" value="0.02"/>
     <xacro:property name="laser_mass" value="0.1"/>
@@ -13,7 +13,7 @@
     <joint name="laser_base_joint" type="fixed">
         <parent link="chassis"/>
         <child link="laser_base"/>
-        <origin xyz="${laser_base_length/2 - laser_radius} 0 ${chassis_height/2 + laser_base_height/2}" rpy="0 0 0"/>
+        <origin xyz="${laser_base_length/2 - laser_radius - laser_offset_x} 0 ${chassis_height/2 + laser_base_height/2}" rpy="0 0 0"/>
     </joint>
 
     <link name="laser_base">
@@ -39,7 +39,7 @@
     <joint name="laser_joint" type="fixed">
         <parent link="chassis" />
         <child link="laser_frame" />
-        <origin xyz="0 0 ${chassis_height/2 + laser_base_height + laser_thickness/2}" rpy="0 0 0" />
+        <origin xyz="${-laser_offset_x} 0 ${chassis_height/2 + laser_base_height + laser_thickness/2}" rpy="0 0 0" />
     </joint>
 
     <link name="laser_frame">

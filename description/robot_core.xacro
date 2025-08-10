@@ -13,7 +13,7 @@
     <xacro:property name="motor_offset_x" value="0.0"/>
     <xacro:property name="motor_offset_y" value="0.055"/>
     <xacro:property name="motor_offset_z" value="0.0"/>
-    <xacro:property name="wheel_radius" value="0.0339"/>
+    <xacro:property name="wheel_radius" value="0.0325"/>
     <xacro:property name="wheel_thickness" value="0.025"/>
     <xacro:property name="wheel_mass" value="0.05"/>
     <xacro:property name="wheel_offset_x" value="0.0"/>
@@ -26,6 +26,13 @@
     <xacro:property name="battery_width" value="0.032"/>
     <xacro:property name="battery_height" value="0.034"/>
     <xacro:property name="battery_mass" value="0.233"/>
+    <xacro:property name="power_bank_length" value="0.105"/>
+    <xacro:property name="power_bank_width" value="0.065"/>
+    <xacro:property name="power_bank_height" value="0.013"/>
+    <xacro:property name="power_bank_mass" value="0.200"/>
+    <xacro:property name="power_bank_offset_x" value="0.09"/>
+    <xacro:property name="power_bank_offset_y" value="0.0"/>
+    <!-- <xacro:property name="power_bank_offset_z" value="0.0"/> -->
 
     <!-- Define colors -->
     <material name="white">
@@ -306,9 +313,10 @@
     
     <!-- LIPO BATTERY LINK -->
     <joint name="lipo_battery_joint" type="fixed">
-        <parent link="base_footprint"/>
+        <parent link="chassis"/>
         <child link="lipo_battery"/>
-        <origin xyz="0 0 ${chassis_offset_z - battery_height / 2}" rpy="0 0 0"/>
+        <origin xyz="0 0 ${-chassis_height/2 - battery_height / 2}" rpy="0 0 0"/>
+        <!-- <origin xyz="0 0 ${chassis_offset_z - battery_height / 2}" rpy="0 0 0"/> -->
     </joint>
 
     <link name="lipo_battery">
@@ -328,6 +336,33 @@
         </xacro:inertial_box>
     </link>
     <gazebo reference="lipo_battery">
+        <material>Gazebo/White</material>
+    </gazebo>
+
+    <!-- POWER BANK LINK -->
+    <joint name="power_bank_joint" type="fixed">
+        <parent link="chassis"/>
+        <child link="power_bank"/>
+        <origin xyz="${power_bank_offset_x} 0 ${chassis_height/2 + power_bank_height/2}" rpy="0 0 ${-pi/2}"/>
+    </joint>
+
+    <link name="power_bank">
+        <visual>
+            <geometry>
+                <box size="${power_bank_length} ${power_bank_width} ${power_bank_height}"/>
+            </geometry>
+            <material name="white"/>
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${power_bank_length} ${power_bank_width} ${power_bank_height}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="${power_bank_mass}" x="${power_bank_length}" y="${power_bank_width}" z="${power_bank_height}">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </xacro:inertial_box>
+    </link>
+    <gazebo reference="power_bank">
         <material>Gazebo/White</material>
     </gazebo>
 </robot>
