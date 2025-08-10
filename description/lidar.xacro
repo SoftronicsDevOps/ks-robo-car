@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <xacro:property name="laser_offset_x" value="0.005"/>
+    <xacro:property name="laser_offset_x" value="0.0075"/>
     <xacro:property name="laser_radius" value="0.035"/>
     <xacro:property name="laser_thickness" value="0.02"/>
     <xacro:property name="laser_mass" value="0.1"/>
