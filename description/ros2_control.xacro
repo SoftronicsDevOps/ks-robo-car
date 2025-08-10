@@ -22,15 +22,6 @@
                 <state_interface name="position"/>
             </joint>
         </ros2_control>
-
-        <xacro:if value="$(arg ros2_control)">
-            <gazebo>
-                <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-                    <parameters>$(find ks-robo-car)/config/ros2_controllers.yaml</parameters>
-                    <!-- <parameters>$(find ks-robo-car)/config/gaz_ros2_ctl_use_sim.yaml</parameters> -->
-                </plugin>
-            </gazebo>
-        </xacro:if>
     </xacro:if>
 
     <xacro:unless value="$(arg sim_mode)">
@@ -40,7 +31,7 @@
                 <param name="left_wheel_name">left_wheel_joint</param>
                 <param name="right_wheel_name">right_wheel_joint</param>
                 <param name="loop_rate">30</param>
-                <param name="device">/dev/ttyUSB0</param>
+                <param name="device">/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0</param>
                 <param name="baud_rate">57600</param>
                 <param name="timeout">1000</param>
                 <param name="enc_counts_per_rev">1500</param>
@@ -63,4 +54,13 @@
             </joint>
         </ros2_control>
     </xacro:unless>
+
+    <xacro:if value="$(arg ros2_control)">
+        <gazebo>
+            <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+                <parameters>$(find ks-robo-car)/config/ros2_controllers.yaml</parameters>
+                <parameters>$(find ks-robo-car)/config/ros2_controller_sim_mode.yaml</parameters>
+            </plugin>
+        </gazebo>
+    </xacro:if>
 </robot>
