@@ -3,7 +3,8 @@ joy_node:
     device_id: 0
     deadzone: 0.05
     autorepeat_rate: 20.0
-
+    
+# Check the axis and button mappings for your joytick online - https://hardwaretester.com/gamepad
 teleop_node:
   ros__parameters:
     axis_linear:  # Left thumb stick vertical
