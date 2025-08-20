@@ -3,7 +3,7 @@
     <xacro:if value="$(arg sim_mode)">
         <ros2_control name="GazeboSystem" type="system">
             <hardware>
-                <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
             </hardware>
             <joint name="left_wheel_joint">
                 <command_interface name="velocity">
@@ -57,7 +57,7 @@
 
     <xacro:if value="$(arg ros2_control)">
         <gazebo>
-            <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+            <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
                 <parameters>$(find ks-robo-car)/config/ros2_controllers.yaml</parameters>
                 <parameters>$(find ks-robo-car)/config/ros2_controller_sim_mode.yaml</parameters>
             </plugin>
